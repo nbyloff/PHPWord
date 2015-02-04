@@ -439,14 +439,15 @@ abstract class AbstractPart
             'textDirection' => array(self::READ_VALUE, 'w:textDirection'),
             'gridSpan'      => array(self::READ_VALUE, 'w:gridSpan'),
             'vMerge'        => array(self::READ_VALUE, 'w:vMerge'),
-            'bgColor'       => array(self::READ_VALUE, 'w:shd', "w:val"),
-            //'bgColor'       => array(self::READ_VALUE, 'w:shd/w:fill'),
+            'bgColor'       => array(self::READ_VALUE, 'w:shd/w:fill'),
+            'shd'           => array(self::READ_VALUE, 'w:shd', "w:val"),
+
         );
         //Capture cell background styling
-        $styleDefs["bgColorFill"] = array(self::READ_VALUE, "w:shd", 'w:fill');
-        $styleDefs["bgColorColor"] = array(self::READ_VALUE, "w:shd", 'w:color');
-        $styleDefs["bgColorThemeFill"] = array(self::READ_VALUE, "w:shd", 'w:themeFill');
-        $styleDefs["bgColorThemeFillTint"] = array(self::READ_VALUE, "w:shd", 'w:themeFillTint');
+        $styleDefs["shdFill"] = array(self::READ_VALUE, "w:shd", 'w:fill');
+        $styleDefs["shdColor"] = array(self::READ_VALUE, "w:shd", 'w:color');
+        $styleDefs["shdThemeFill"] = array(self::READ_VALUE, "w:shd", 'w:themeFill');
+        $styleDefs["shdThemeFillTint"] = array(self::READ_VALUE, "w:shd", 'w:themeFillTint');
 
         return $this->readStyleDefs($xmlReader, $domNode, $styleDefs);
     }

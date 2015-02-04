@@ -166,8 +166,29 @@ class Cell extends Border
         return $this->setShading(array('fill' => $value));
     }
 
-    public function setBgFill($value = null)
+    public function setShd($value = null)
     {
+        $this->setShading(array('val' => $value));
+    }
+
+    public function setShdFill($value = null)
+    {
+        $this->setShading(array('fill' => $value));
+    }
+
+    public function setShdColor($value = null)
+    {
+        $this->setShading(array('color' => $value));
+    }
+
+    public function setShdThemeFill($value = null)
+    {
+        $this->setShading(array('themeFill' => $value));
+    }
+
+    public function setShdThemeFillTint($value = null)
+    {
+        $this->setShading(array('themeFillTint' => $value));
     }
 
     /**
