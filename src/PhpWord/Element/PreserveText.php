@@ -99,4 +99,9 @@ class PreserveText extends AbstractElement
     {
         return $this->text;
     }
+
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
 }

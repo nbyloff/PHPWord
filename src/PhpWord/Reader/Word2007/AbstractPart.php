@@ -316,6 +316,7 @@ abstract class AbstractPart
         if (!$xmlReader->elementExists('w:pPr', $domNode)) {
             return null;
         }
+        $borders = array('top', 'left', 'bottom', 'right');
 
         $styleNode = $xmlReader->getElement('w:pPr', $domNode);
         $styleDefs = array(
@@ -332,6 +333,14 @@ abstract class AbstractPart
             'keepLines'       => array(self::READ_TRUE,  'w:keepLines'),
             'pageBreakBefore' => array(self::READ_TRUE,  'w:pageBreakBefore'),
         );
+
+        foreach ($borders as $side) {
+            $ucfSide = ucfirst($side);
+            $styleDefs["border$ucfSide"] = array(self::READ_VALUE, "w:pBdr/w:$side", 'w:val');
+            $styleDefs["border{$ucfSide}Size"] = array(self::READ_VALUE, "w:pBdr/w:$side", 'w:sz');
+            $styleDefs["border{$ucfSide}Color"] = array(self::READ_VALUE, "w:pBdr/w:$side", 'w:color');
+            $styleDefs["border{$ucfSide}Space"] = array(self::READ_VALUE, "w:pBdr/w:$side", 'w:space');
+        }
 
         return $this->readStyleDefs($xmlReader, $styleNode, $styleDefs);
     }
@@ -430,8 +439,14 @@ abstract class AbstractPart
             'textDirection' => array(self::READ_VALUE, 'w:textDirection'),
             'gridSpan'      => array(self::READ_VALUE, 'w:gridSpan'),
             'vMerge'        => array(self::READ_VALUE, 'w:vMerge'),
-            'bgColor'       => array(self::READ_VALUE, 'w:shd/w:fill'),
+            'bgColor'       => array(self::READ_VALUE, 'w:shd', "w:val"),
+            //'bgColor'       => array(self::READ_VALUE, 'w:shd/w:fill'),
         );
+        //Capture cell background styling
+        $styleDefs["bgColorFill"] = array(self::READ_VALUE, "w:shd", 'w:fill');
+        $styleDefs["bgColorColor"] = array(self::READ_VALUE, "w:shd", 'w:color');
+        $styleDefs["bgColorThemeFill"] = array(self::READ_VALUE, "w:shd", 'w:themeFill');
+        $styleDefs["bgColorThemeFillTint"] = array(self::READ_VALUE, "w:shd", 'w:themeFillTint');
 
         return $this->readStyleDefs($xmlReader, $domNode, $styleDefs);
     }

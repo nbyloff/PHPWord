@@ -166,6 +166,10 @@ class Cell extends Border
         return $this->setShading(array('fill' => $value));
     }
 
+    public function setBgFill($value = null)
+    {
+    }
+
     /**
      * Get grid span (colspan).
      *
